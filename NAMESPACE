@@ -1,0 +1,4 @@
+exportPattern("^[[:alpha:]]+")
+importFrom("graphics", "axis", "box", "boxplot", "legend", "lines", "plot", "points", "segments", "title")
+importFrom("stats", "approx", "lm", "loess", "mad", "predict", "sd", "t.test")
+importFrom("utils", "read.table", "tail")
