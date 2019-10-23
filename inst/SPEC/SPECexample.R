@@ -1,11 +1,9 @@
-
 #******************************************************
 # SPEC for reading the data in R
 #******************************************************
 a0 <- "00filelist.csv"
 a <- system.file("exampleDATA", a0, package = package.name)
 dataFolder <- substring(a, 1, nchar(a)-nchar(a0)-1 )
-
 dataFileType.df = read.table( paste(dataFolder, "00filelist.csv", sep="/"), skip=2, sep="," )
 dataFiles = fac2char.fn(dataFileType.df[,1])
 subjectTypes = fac2char.fn(dataFileType.df[,2])
@@ -23,7 +21,7 @@ Sep=","   # usually, Sep=',' when reading '.csv' and Sep='\t' when reading '.txt
 
 timeStamp.column = "Time" # this must be corrsponding to the column names after using read.table()
 responseName = "Glucose"  # this must be corrsponding to the column names after using read.table()
-timeUnit = "minute"       # the smallest time unit in the time series 
+timeUnit = "minute"       # the smallest time unit in the time series
 equal.interval = 3        # the size of interval between two consecutive points
 #equal.interval = 15        # the size of interval between two consecutive points
 
@@ -36,14 +34,14 @@ idxNA = 0   # idxNA = NA if the missing value is marked with NA correctly
 #idxNA = NA   # idxNA = NA if the missing value is marked with NA correctly
 
 #******************************************************
-# SPEC for calculating multiscale sample entropy 
+# SPEC for calculating multiscale sample entropy
 #******************************************************
-r <- 0.15  
+r <- 0.15
 m <- 2
 I <- 400000
 scaleMax <- 10; scaleStep <- 1
 Scales <- seq(1, scaleMax, by=scaleStep)
-cFile = "mseLong.c"	
+cFile = "mseLong.c"
 
 #******************************************************************************************
 # SPEC for whether to run calculation of summary statistics and/or boxplot for each sensor

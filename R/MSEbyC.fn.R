@@ -1,41 +1,36 @@
-
-MSEbyC.fn <- 
-function(x, scaleMax=10, scaleStep=1, mMin=2, mMax=2, mStep=1, rMin=0.15, rMax=0.15, 
-		 I=400000, cmdCore="mse", cFolder=getwd() )
+MSEbyC.fn <-
+function(x, scaleMax=10, scaleStep=1, mMin=2, mMax=2, mStep=1, rMin=0.15, rMax=0.15,
+		 I=400000)
 {
 # **********************************************************************************
-# Function to call and run a C program to calculate multiscale entropy (MSE) 
-#     of an equally spaced time series.  
+# Function to call and run a C program to calculate multiscale entropy (MSE)
+#     of an equally spaced time series.
 #
 # ARGUMENTS
-#  x: A numeric vector, with data for a regularly spaced time series.   
-#     No missing value is allowed because the C program is not set up to 
-#     handle missing value. 
-#  scaleMax: maximal value of scale factors for coarse graining in the MSE algorithm. 
-#     The scale factors are a sequence from 1 to a value no more than 'scaleMax' 
-#     with equal space 'scaleStep'.  Scale factors are positive integers that specify  
-#     bin size for coarse graining: the number of consecutive observations 
-#     in 'x' that form a bin and are averaged in the first step of the algorithm.  
+#  x: A numeric vector, with data for a regularly spaced time series.
+#     No missing value is allowed because the C program is not set up to
+#     handle missing value.
+#  scaleMax: maximal value of scale factors for coarse graining in the MSE algorithm.
+#     The scale factors are a sequence from 1 to a value no more than 'scaleMax'
+#     with equal space 'scaleStep'.  Scale factors are positive integers that specify
+#     bin size for coarse graining: the number of consecutive observations
+#     in 'x' that form a bin and are averaged in the first step of the algorithm.
 #  scaleStep: see 'scaleMax' above.
-#  mMin: A sequence from 'mMin' to 'mMax' with equal space of 'mStep' that defines 
-#     the vector of positive integers that give the window size for the entropy 
-#     calculations in the second step of the algorithm:  the number of 
-#     consecutive _bins_ over which similarity between subsequences is 
-#     of interest.  Typical values in the sequence are 1, 2, or 3. 
+#  mMin: A sequence from 'mMin' to 'mMax' with equal space of 'mStep' that defines
+#     the vector of positive integers that give the window size for the entropy
+#     calculations in the second step of the algorithm:  the number of
+#     consecutive _bins_ over which similarity between subsequences is
+#     of interest.  Typical values in the sequence are 1, 2, or 3.
 #  mMax and mStep: See 'Min' above
-#  rMin and rMax: A sequence from 'rMin' to 'rMax' with equal space of 0.05 that defines 
+#  rMin and rMax: A sequence from 'rMin' to 'rMax' with equal space of 0.05 that defines
 #     coefficients for similarity thresholds. Typical values in the sequence are 0.15, 0.2.
-#     r*sd(x) must be in the same units as 'x'. Averages in two bins are 
-#     defined to be similar if they differ by 'r*sd(x)' or less. 
+#     r*sd(x) must be in the same units as 'x'. Averages in two bins are
+#     defined to be similar if they differ by 'r*sd(x)' or less.
 #  I: the maximal number of points to be used for calculating MSE
-#  cFolder: The directory in which .c is held as well as in which 
-#     temporary files associated with running C are created/removed.  
-#  cmdCore: command to run the C program for calculating MSE.
-#       The file name must have all the letters in ".c" file excluding ".c", such as "mse" for "mse.c"
 # VALUE
-#  A data frame with with one row for each combination of 'Scale', 'm' and 'rSD'.  
-#  Columns are "Scale", "m", "rSD", and "SampEn" (the calculated sample entropy).  
-#  The data frame will also have an attribute "SD", the standard deviation 
+#  A data frame with with one row for each combination of 'Scale', 'm' and 'rSD'.
+#  Columns are "Scale", "m", "rSD", and "SampEn" (the calculated sample entropy).
+#  The data frame will also have an attribute "SD", the standard deviation
 #  of 'x'. rSD = r*sd(x)
 
 # VERSION
@@ -45,23 +40,27 @@ function(x, scaleMax=10, scaleStep=1, mMin=2, mMax=2, mStep=1, rMin=0.15, rMax=0
   if ( anyNA(x) )  stop("'NA' values in 'x' are not allowed")
   N <- length(x)
   if ( scaleMax > N/10 )  stop( "'Scale' is too large compared to data length" )
-  
+
   # Temporary files for input and output for running a C program
-  tempin <- tempfile("temp", tmpdir=cFolder, fileext=".txt")
-  tempout <- tempfile("temp", tmpdir=cFolder, fileext=".txt")
+  tempin <- tempfile("tempin", tmpdir=getwd(), fileext=".txt")
+  tempout <- tempfile("tempout", tmpdir=getwd(), fileext=".txt")
   write(x, file=tempin, ncolumns=1, sep="\t")
   on.exit(unlink(tempin))
 
+  # only for test
+  # mMin <- 0
   options(scipen=999)
   # Construct command line arguments for running the C program.
-  Args <- paste("-n", scaleMax, "-a", scaleStep, "-b", mStep, "-m", mMin, "-M", mMax,  
+  Args <- paste("-n", scaleMax, "-a", scaleStep, "-b", mStep, "-m", mMin, "-M", mMax,
                "-r", rMin, "-R", rMax, "-I", I)
-			   
-  # Run the C program to calculate sample entropy
-  Command <- paste0(cFolder, "/", cmdCore, ".e","xe")
-  cmd <- paste(Command, Args, "<", tempin, ">", tempout)
+
+
+  #Command <- paste0(cFolder, "/", cmdCore, ".e","xe")
+  cmd <- paste("MSE.exe", Args, "-z", tempin, "-Z", tempout)
   on.exit(unlink(tempout), add=TRUE)
-  shell(cmd, wait=TRUE, intern=FALSE, invisible=TRUE)
+  #shell(cmd, wait=TRUE, intern=FALSE, invisible=TRUE)
+  # Call the C function 'Mse' to calculate sample entropy
+  .C(C_Mse, cmd)
 
   # Read calculated sample entropy back into R
   Text <- readLines(tempout)
@@ -74,12 +73,12 @@ function(x, scaleMax=10, scaleStep=1, mMin=2, mMax=2, mStep=1, rMin=0.15, rMax=0
     blockLine1 <- Text[ blockStarts[i] ]
     mr.vec <- eval(parse(text=paste0("c(", blockLine1, ")")))
     con <- textConnection(Text[(blockStarts[i]+1):(blockEnds[i])])
-    mseBlock.df <- read.table(con, header=FALSE, sep="\t", row.names=NULL, 
+    mseBlock.df <- read.table(con, header=FALSE, sep="\t", row.names=NULL,
 							  col.names=c("Scale", "SampleEntropy", "endNA"),
 							  colClasses="numeric", comment.char="")
     mseBlock.df$endNA <- NULL  # remove the last NA column generated by trailing "\t" in each line
     close(con)
-    result.lst[[i]] <- data.frame("m"=rep(mr.vec["m"], nrow(mseBlock.df)), 
+    result.lst[[i]] <- data.frame("m"=rep(mr.vec["m"], nrow(mseBlock.df)),
                             "r"=rep(mr.vec["r"], nrow(mseBlock.df)), mseBlock.df)
   }
   # Combine results in all block into a single data frame.

@@ -2,15 +2,15 @@
 \alias{MSEbyC.fn}
 
 \title{
-call and run a C program to calculate multiscale entropy
+call a C function to calculate multiscale entropy
 }
 \description{
-Function to call and run a C program to calculate multiscale entropy (MSE)
+Function to call a C function to calculate multiscale entropy (MSE)
 of an equally spaced time series.
 }
 \usage{
 MSEbyC.fn(x, scaleMax = 10, scaleStep = 1, mMin = 2, mMax = 2, mStep = 1, rMin = 0.15,
-rMax = 0.15, I = 400000, cmdCore = "mse", cFolder = getwd())
+rMax = 0.15, I = 400000)
 }
 
 \arguments{
@@ -41,15 +41,9 @@ See 'rMin'
   \item{I}{
 the maximal number of points to be used for calculating MSE cFolder: The directory in which .c is held as well as in which temporary files associated with running C are created/removed.
 }
-  \item{cmdCore}{
-command to run the C program for calculating MSE. The file name must have all the letters in ".c" file excluding ".c", such as "mse" for "mse.c"
-}
-  \item{cFolder}{
-name of the folder holding the '.c' file.
-}
 }
 \details{
-Function to call and run a C program to calculate multiscale entropy (MSE)
+Function to call a C function to calculate multiscale entropy (MSE)
 of an equally spaced time series.
 }
 \value{
@@ -66,11 +60,6 @@ Xiaohua Douglas Zhang
 library(CGManalyzer)
 package.name <- "CGManalyzer"
 source( system.file("SPEC", "SPECexample.R", package = package.name) )
-a <- system.file("SPEC", cFile, package = package.name)
-cFolder0 <- substring(a, 1, nchar(a)-nchar(cFile)-1 )
-cFolder <- gsub("Program Files", "PROGRA~1", cFolder0, fixed = TRUE)
-compileC.fn(cFile=cFile, cFolder=cFolder)
-cmdCore <- gsub(".c", "", cFile, fixed = TRUE)
 data.df0 <- read.table(paste(dataFolder, dataFiles[1], sep="/"),
         skip=Skip, header=Header, comment.char=Comment.char, sep=Sep)
 if( !Header ) {
@@ -91,6 +80,6 @@ data.df <- data.df[ order(data.df[, "timeSeries"]), ]
 data.mat <- data.df[, c("timeSeries", responseName)]
 data.mat <- data.mat[!is.na(data.mat[,2]), ]
 MSE.mat <- MSEbyC.fn(data.mat[,2], scaleMax, scaleStep, mMin=m, mMax=m, mStep=1,
-          rMin=r, rMax=r, I=I, cmdCore=cmdCore, cFolder=cFolder )
+          rMin=r, rMax=r, I=I)
 MSE.mat
 }

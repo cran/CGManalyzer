@@ -12,26 +12,23 @@
 ##########################################################################################
 # Please complete the following steps before reading any data in R
 #  1. Put all the data (in .csv or .txt) in the data folder and remove all .zip or other files
-#  2. In the data folder, create a new .bat file named "00fetchFileNameInDirectory.bat"
-#     which must have and only have "DIR *.* /B > 00filelist.csv" as its content
-#  3. After create and save the file "00fetchFileNameInDirectory.bat", double click on 
-#     this file name to automatically create a file named "00filelist.csv" which holds 
+#  2. Call createFileList.fn create a file named "00filelist.csv" which holds
 #     all the names of data files, one file for the data in one subject or sensor.
-#  4. Add a second column in generated file "00filelist.csv" in which the group type for each
-#     subject is specified. After the addition is completed, the first 5 lines in "00filelist.csv" 
+#  3. Change the second column in generated file "00filelist.csv" in which the group type for each
+#     subject is specified. After the addition is completed, the first 5 lines in "00filelist.csv"
 #     should be more or less as follows
-#______________________________	
-#00fetchFileNameInDirectory.bat
-#00filelist.csv	
-#S0001.csv	II
-#S0002.csv	I
-#S0003.csv	H
+#______________________________
+#dataFiles,dataType
+#00filelist.csv,H
+#S0003P0001T1.csv,H
+#S0003P0001T2.csv,H
+#S0003P0002.csv,H
+#S0003P0003.csv,H
 #_______________________________
-#  5. Delete the file "00fetchFileNameInDirectory.bat" that was created in Step 2
-#  6. Each data file should have the same structure with the same number of columns and 
-#     the same column names, the same time stamp structure, the same number of head lines 
-#     to be skipped for read 
-#  7. change the settings in the SPEC.R file so that the input for the parameters corresponds to 
+#  4. Each data file should have the same structure with the same number of columns and
+#     the same column names, the same time stamp structure, the same number of head lines
+#     to be skipped for read
+#  5. change the settings in the SPEC.R file so that the input for the parameters corresponds to
 #     your data file and the CGM device that is used in your study.
 #******************************************************************************************
 # 'Skip' in skip=Skip
@@ -42,7 +39,7 @@
 #******************************************************
 # SPEC for reading the data in R
 #******************************************************
-dataFolder = file.path(mainFolder, "Data")
+dataFolder = file.path(mainFolder, "data")
 dataFileType.df = read.table( paste(dataFolder, "00filelist.csv", sep="/"), skip=2, sep="," )
 dataFiles = fac2char.fn(dataFileType.df[,1])
 subjectTypes = fac2char.fn(dataFileType.df[,2])
@@ -57,7 +54,7 @@ Sep=","   # usually, Sep=',' when reading '.csv' and Sep='\t' when reading '.txt
 
 timeStamp.column = "Time" # this must be corrsponding to the column names after using read.table()
 responseName = "Glucose"  # this must be corrsponding to the column names after using read.table()
-timeUnit = "minute"       # the smallest time unit in the time series 
+timeUnit = "minute"       # the smallest time unit in the time series
 equal.interval = 3        # the size of interval between two consecutive points
 
 #time.format = "yyyy:mm:\tdd:hh:nn" #"2016:08:11:09:14"  ### handle with various time formats
@@ -68,14 +65,14 @@ idxNA = 0   # idxNA = NA if the missing value is marked with NA correctly
               ####handle with the situation of using different symbol for missing value
 
 #******************************************************
-# SPEC for calculating multiscale sample entropy 
+# SPEC for calculating multiscale sample entropy
 #******************************************************
-r <- 0.15  
+r <- 0.15
 m <- 2
 I <- 400000
 scaleMax <- 10; scaleStep <- 1
 Scales <- seq(1, scaleMax, by=scaleStep)
-cFile = "mseLong.c"	
+cFile = "mseLong.c"
 
 #******************************************************************************************
 # SPEC for whether to run calculation of summary statistics and/or boxplot for each sensor

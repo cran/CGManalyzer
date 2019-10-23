@@ -35,3 +35,4 @@ package.name <- "CGManalyzer"
 source( system.file("SPEC", "SPECexample.R", package = package.name) )
 fac2char.fn(dataFileType.df[,1])
 }
+

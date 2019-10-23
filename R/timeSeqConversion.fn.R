@@ -27,7 +27,7 @@ function(time.stamp, time.format = "yyyy:mm:dd:hh:nn", timeUnit = "minute")
     secondPos <- gregexpr(pattern ='s', time.format)[[1]]	
     millisecondPos <- gregexpr(pattern ='i', time.format)[[1]]	
 	pos.lst <- list( "Year"=yearPos, "Month"=monthPos, "Day"=dayPos, "Hour"=hourPos, 
-	                "Minute"=minutePos, "Seond"=secondPos, "Millisecond"=millisecondPos)
+	                "Minute"=minutePos, "Second"=secondPos, "Millisecond"=millisecondPos)
 					
 	pos.name <- names(pos.lst)
 	Time.mat <- NULL
