@@ -4,7 +4,7 @@
 a0 <- "00filelist.csv"
 a <- system.file("exampleDATA", a0, package = package.name)
 dataFolder <- substring(a, 1, nchar(a)-nchar(a0)-1 )
-dataFileType.df = read.table( paste(dataFolder, "00filelist.csv", sep="/"), skip=2, sep="," )
+dataFileType.df = read.table( paste(dataFolder, "00filelist.csv", sep="/"), skip=2, sep="," ,stringsAsFactors = TRUE, as.is = FALSE)
 dataFiles = fac2char.fn(dataFileType.df[,1])
 subjectTypes = fac2char.fn(dataFileType.df[,2])
 nFile = length(dataFiles)

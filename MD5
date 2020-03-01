@@ -1,4 +1,4 @@
-f1e253e6ffcb33b8d3cf07a5a842635d *DESCRIPTION
+3aa84bf224bc6d2ed3fdef83e50471ca *DESCRIPTION
 a53fbb48d01381586c9834f7b15f1193 *LICENSE
 3c51fb62d36603166d33e35e3cc82d73 *NAMESPACE
 7ba433c52a0d3f7e305006acc4a07785 *R/CONGA.fn.R
@@ -17,12 +17,12 @@ ee7e7e2c29935eaf2442a4a1408b75b3 *R/antennaPlot.fn.R
 58d5b80051b05d6fe0d6e9c243dea270 *R/ssmdEffect.fn.R
 47d33d5bfb9c90542cf7af724b80c94b *R/summaryCGM.fn.R
 f70416e14c8353fb99df630936dbbd2c *R/timeSeqConversion.fn.R
-88722b3f670c7ef932fa1c0f78076af3 *build/partial.rdb
+4d422478c092d80cf88244db86d3fffc *build/partial.rdb
 1f664413c97102ef73f460e6918b7364 *inst/SPEC/MSE.csv
-dbfc2dbd58942aebc30789dc07272863 *inst/SPEC/SPEC.FreestyleLibre.R
-d6c0c1c21a8a7116ed0d1173b218efa0 *inst/SPEC/SPEC.Glutalor.R
-dc5253b0081edbf99db441240028a77a *inst/SPEC/SPEC.Medtronic.R
-73548268533168b61d7c905897ac335b *inst/SPEC/SPECexample.R
+a0b82682a6e6c780e330e68652db9775 *inst/SPEC/SPEC.FreestyleLibre.R
+5ffb7b3e2d897b3ce26e4ef07e1935cf *inst/SPEC/SPEC.Glutalor.R
+07b25d04e78121539e86f0c052eca598 *inst/SPEC/SPEC.Medtronic.R
+fc76b196b249216a9ba615bb057b5cbc *inst/SPEC/SPECexample.R
 e279dd6164aaaa70512f00ae5ddc92f8 *inst/SPEC/pvalSSMD.csv
 d59333a0506f314d8011c9ffda06e642 *inst/exampleDATA/00filelist.csv
 7cbb7994555ef55bb21817f445e44df4 *inst/exampleDATA/ID01.csv

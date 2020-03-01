@@ -40,7 +40,7 @@
 # SPEC for reading the data in R
 #******************************************************
 dataFolder = file.path(mainFolder, "data")
-dataFileType.df = read.table( paste(dataFolder, "00filelist.csv", sep="/"), skip=2, sep="," )
+dataFileType.df = read.table( paste(dataFolder, "00filelist.csv", sep="/"), skip=2, sep="," ,stringsAsFactors = TRUE, as.is = FALSE)
 dataFiles = fac2char.fn(dataFileType.df[,1])
 subjectTypes = fac2char.fn(dataFileType.df[,2])
 nFile = length(dataFiles)
