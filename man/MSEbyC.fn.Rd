@@ -50,7 +50,7 @@ of an equally spaced time series.
 A data frame with with one row for each combination of 'Scale', 'm' and 'rSD'.  Columns are "Scale", "m", "rSD", and "SampEn" (the calculated sample entropy). The data frame will also have an attribute "SD", the standard deviation of 'x'. rSD = r*sd(x)
 }
 \references{
-Zhang XD, Zhang Z. CGManalyzer: a R package for analyzing continuous glucose monitoring studies
+Zhang XD, Zhang Z, Wang D. 2018. CGManalyzer: an R package for analyzing continuous glucose monitoring studies. Bioinformatics 34(9): 1609-1611 (DOI: 10.1093/bioinformatics/btx826).
 }
 \author{
 Xiaohua Douglas Zhang

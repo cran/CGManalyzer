@@ -24,6 +24,8 @@ function to derive the type of effect size based on SSMD values
 }
 
 \references{
+Zhang XD, Zhang Z, Wang D. 2018. CGManalyzer: an R package for analyzing continuous glucose monitoring studies. Bioinformatics 34(9): 1609-1611 (DOI: 10.1093/bioinformatics/btx826).
+
 Zhang XHD, 2011. Optimal High-Throughput Screening: Practical  Experimental Design and Data Analysis for Genome-scale RNAi Research.  Cambridge University Press, Cambridge, UK
 }
 \author{

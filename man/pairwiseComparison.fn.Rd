@@ -32,7 +32,7 @@ function to calculate mean difference and its confidence interval, SSMD, p-value
 a vector for calculated mean difference, its upper and lower bounds of CI, SSMD and pvalue in each pairs of group comparison, along with mean, standard deviation, and sample size in each group
 }
 \references{
-Zhang XD, Zhang Z. CGManalyzer: a R package for analyzing continuous glucose monitoring studies
+Zhang XD, Zhang Z, Wang D. 2018. CGManalyzer: an R package for analyzing continuous glucose monitoring studies. Bioinformatics 34(9): 1609-1611 (DOI: 10.1093/bioinformatics/btx826).
 }
 \author{
 Xiaohua Douglas Zhang

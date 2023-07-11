@@ -18,7 +18,7 @@ The R package CGManalyzer contains functions for analyzing data from a continuou
 Maintainer: \packageMaintainer{CGManalyzer}
 }
 \references{
-Zhang XD, Zhang Z and Wang D(2018)<doi:10.1093/bioinformatics/btx826>. CGManalyzer: an R package for analyzing continuous glucose monitoring studies.
+Zhang XD, Zhang Z, Wang D. 2018. CGManalyzer: an R package for analyzing continuous glucose monitoring studies. Bioinformatics 34(9): 1609-1611 (DOI: 10.1093/bioinformatics/btx826).
 
 Costa M., Goldberger A.L., Peng C.-K. Multiscale entropy analysis of physiologic time series. Phys Rev Lett 2002; 89:062102.
 

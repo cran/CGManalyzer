@@ -37,7 +37,7 @@ a box plot for the data by each sensor or subject
 }
 \value{No value return; draw a boxplot}
 \references{
-Zhang XD, Zhang Z. CGManalyzer: a R package for analyzing continuous glucose monitoring studies
+Zhang XD, Zhang Z, Wang D. 2018. CGManalyzer: an R package for analyzing continuous glucose monitoring studies. Bioinformatics 34(9): 1609-1611 (DOI: 10.1093/bioinformatics/btx826).
 }
 \author{
 Xiaohua Douglas Zhang
